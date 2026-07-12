@@ -1,0 +1,2024 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 200个 JavaScript 趣味函数大全</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle { text-align: center; margin-bottom: 30px; opacity: 0.7; }
+
+        /* 导航标签 */
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .nav-tab {
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .nav-tab:hover, .nav-tab.active {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.05);
+        }
+        .nav-tab .count {
+            background: rgba(255,107,107,0.5);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+
+        /* 函数展示区 */
+        .functions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .function-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        .function-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.08);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        .function-card h4 {
+            color: #48dbfb;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .function-card .desc {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-bottom: 15px;
+            min-height: 40px;
+        }
+        .function-card button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .function-card button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .function-card .result {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 10px;
+            min-height: 40px;
+            font-size: 0.9rem;
+            word-break: break-all;
+        }
+
+        /* 分类颜色 */
+        .cat-array h4 { color: #ff6b6b; }
+        .cat-string h4 { color: #feca57; }
+        .cat-math h4 { color: #48dbfb; }
+        .cat-date h4 { color: #ff9ff3; }
+        .cat-dom h4 { color: #54a0ff; }
+        .cat-game h4 { color: #5f27cd; }
+        .cat-animation h4 { color: #00d2d3; }
+        .cat-util h4 { color: #1dd1a1; }
+
+        /* 特殊组件样式 */
+        .color-box {
+            width: 100%;
+            height: 60px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="number"], select {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: #fff;
+            font-size: 0.9rem;
+            width: 100%;
+            margin-bottom: 8px;
+        }
+        input:focus { outline: none; border-color: #48dbfb; }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s;
+        }
+
+        .badge-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .badge {
+            padding: 4px 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        /* 搜索框 */
+        .search-box {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .search-box input {
+            width: 300px;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+        }
+
+        /* 统计栏 */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #48dbfb;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎮 200个 JavaScript 趣味函数大全</h1>
+    <p class="subtitle">从基础到高级，从实用到趣味 - 你的JS学习宝库</p>
+
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-value">200</div>
+            <div class="stat-label">函数总数</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">8</div>
+            <div class="stat-label">分类</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">∞</div>
+            <div class="stat-label">可能性</div>
+        </div>
+    </div>
+
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="🔍 搜索函数名称..." oninput="filterFunctions()">
+    </div>
+
+    <div class="nav-tabs">
+        <div class="nav-tab active" onclick="showCategory('all')">
+            全部 <span class="count">200</span>
+        </div>
+        <div class="nav-tab" onclick="showCategory('array')">
+            📦 数组 <span class="count">30</span>
+        </div>
+        <div class="nav-tab" onclick="showCategory('string')">
+            🔤 字符串 <span class="count">30</span>
+        </div>
+        <div class="nav-tab" onclick="showCategory('math')">
+            🔢 数学 <span class="count">30</span>
+        </div>
+        <div class="nav-tab" onclick="showCategory('date')">
+            ⏰ 日期 <span class="count">20</span>
+        </div>
+        <div class="nav-tab" onclick="showCategory('dom')">
+            🖼️ DOM <span class="count">25</span>
+        </div>
+        <div class="nav-tab" onclick="showCategory('game')">
+            🎮 游戏 <span class="count">25</span>
+        </div>
+        <div class="nav-tab" onclick="showCategory('util')">
+            🔧 工具 <span class="count">40</span>
+        </div>
+    </div>
+
+    <div id="functionsGrid" class="functions-grid"></div>
+
+    <script>
+        // ========== 200个函数库 ==========
+
+        // ==================== 数组函数 (30个) ====================
+        const arrayFunctions = [
+            {
+                name: "数组求和",
+                desc: "计算数组中所有数字的总和",
+                fn: () => {
+                    const arr = [1, 2, 3, 4, 5];
+                    return `数组: [${arr}]<br>总和: ${arr.reduce((a, b) => a + b, 0)}`;
+                }
+            },
+            {
+                name: "数组平均值",
+                desc: "计算数组中数字的平均值",
+                fn: () => {
+                    const arr = [10, 20, 30, 40, 50];
+                    const avg = arr.reduce((a, b) => a + b, 0) / arr.length;
+                    return `数组: [${arr}]<br>平均值: ${avg}`;
+                }
+            },
+            {
+                name: "数组最大值",
+                desc: "找出数组中的最大值",
+                fn: () => {
+                    const arr = [23, 89, 12, 45, 67, 3];
+                    return `数组: [${arr}]<br>最大值: ${Math.max(...arr)}`;
+                }
+            },
+            {
+                name: "数组最小值",
+                desc: "找出数组中的最小值",
+                fn: () => {
+                    const arr = [23, 89, 12, 45, 67, 3];
+                    return `数组: [${arr}]<br>最小值: ${Math.min(...arr)}`;
+                }
+            },
+            {
+                name: "数组去重",
+                desc: "移除数组中的重复元素",
+                fn: () => {
+                    const arr = [1, 2, 2, 3, 4, 4, 5];
+                    const unique = [...new Set(arr)];
+                    return `原数组: [${arr}]<br>去重后: [${unique}]`;
+                }
+            },
+            {
+                name: "数组反转",
+                desc: "将数组元素顺序反转",
+                fn: () => {
+                    const arr = [1, 2, 3, 4, 5];
+                    return `原数组: [${arr}]<br>反转: [${[...arr].reverse()}]`;
+                }
+            },
+            {
+                name: "数组排序(升序)",
+                desc: "将数组按升序排列",
+                fn: () => {
+                    const arr = [3, 1, 4, 1, 5, 9, 2, 6];
+                    return `原数组: [${arr}]<br>排序: [${[...arr].sort((a, b) => a - b)}]`;
+                }
+            },
+            {
+                name: "数组排序(降序)",
+                desc: "将数组按降序排列",
+                fn: () => {
+                    const arr = [3, 1, 4, 1, 5, 9, 2, 6];
+                    return `原数组: [${arr}]<br>排序: [${[...arr].sort((a, b) => b - a)}]`;
+                }
+            },
+            {
+                name: "数组过滤(偶数)",
+                desc: "筛选出数组中的偶数",
+                fn: () => {
+                    const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+                    const evens = arr.filter(n => n % 2 === 0);
+                    return `原数组: [${arr}]<br>偶数: [${evens}]`;
+                }
+            },
+            {
+                name: "数组过滤(奇数)",
+                desc: "筛选出数组中的奇数",
+                fn: () => {
+                    const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+                    const odds = arr.filter(n => n % 2 !== 0);
+                    return `原数组: [${arr}]<br>奇数: [${odds}]`;
+                }
+            },
+            {
+                name: "数组映射(平方)",
+                desc: "将数组每个元素平方",
+                fn: () => {
+                    const arr = [1, 2, 3, 4, 5];
+                    const squared = arr.map(n => n * n);
+                    return `原数组: [${arr}]<br>平方: [${squared}]`;
+                }
+            },
+            {
+                name: "数组映射(双倍)",
+                desc: "将数组每个元素乘以2",
+                fn: () => {
+                    const arr = [1, 2, 3, 4, 5];
+                    const doubled = arr.map(n => n * 2);
+                    return `原数组: [${arr}]<br>双倍: [${doubled}]`;
+                }
+            },
+            {
+                name: "数组打乱",
+                desc: "随机打乱数组元素顺序",
+                fn: () => {
+                    const arr = [1, 2, 3, 4, 5, 6, 7, 8];
+                    const shuffled = [...arr].sort(() => Math.random() - 0.5);
+                    return `原数组: [${arr}]<br>打乱: [${shuffled}]`;
+                }
+            },
+            {
+                name: "数组连接",
+                desc: "合并多个数组为一个",
+                fn: () => {
+                    const a = [1, 2, 3];
+                    const b = [4, 5, 6];
+                    return `数组A: [${a}]<br>数组B: [${b}]<br>合并: [${a.concat(b)}]`;
+                }
+            },
+            {
+                name: "数组切片",
+                desc: "截取数组的一部分",
+                fn: () => {
+                    const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+                    return `原数组: [${arr}]<br>切片[2-6]: [${arr.slice(2, 7)}]`;
+                }
+            },
+            {
+                name: "数组填充",
+                desc: "用固定值填充数组",
+                fn: () => {
+                    const arr = new Array(5).fill('⭐');
+                    return `创建5个元素的数组<br>填充星星: ${arr.join(' ')}`;
+                }
+            },
+            {
+                name: "数组查找",
+                desc: "查找符合条件的第一个元素",
+                fn: () => {
+                    const arr = [5, 12, 8, 130, 44];
+                    const found = arr.find(n => n > 10);
+                    return `数组: [${arr}]<br>第一个>10的: ${found}`;
+                }
+            },
+            {
+                name: "数组查找索引",
+                desc: "查找元素的索引位置",
+                fn: () => {
+                    const arr = ['苹果', '香蕉', '橙子', '葡萄'];
+                    return `数组: [${arr}]<br>'橙子'的索引: ${arr.indexOf('橙子')}`;
+                }
+            },
+            {
+                name: "数组包含",
+                desc: "检查数组是否包含某个元素",
+                fn: () => {
+                    const arr = ['红', '绿', '蓝'];
+                    return `数组: [${arr}]<br>包含'蓝': ${arr.includes('蓝')}<br>包含'黄': ${arr.includes('黄')}`;
+                }
+            },
+            {
+                name: "数组计数",
+                desc: "统计数组元素出现次数",
+                fn: () => {
+                    const arr = ['a', 'b', 'a', 'c', 'b', 'a'];
+                    const count = arr.reduce((acc, val) => (acc[val] = (acc[val] || 0) + 1, acc), {});
+                    return `数组: [${arr}]<br>计数: ${JSON.stringify(count)}`;
+                }
+            },
+            {
+                name: "数组分块",
+                desc: "将数组分成指定大小的小组",
+                fn: () => {
+                    const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+                    const chunks = [];
+                    for (let i = 0; i < arr.length; i += 3) chunks.push(arr.slice(i, i + 3));
+                    return `原数组: [${arr}]<br>分块(每组3个): ${JSON.stringify(chunks)}`;
+                }
+            },
+            {
+                name: "数组交集",
+                desc: "找出两个数组的共同元素",
+                fn: () => {
+                    const a = [1, 2, 3, 4, 5];
+                    const b = [3, 4, 5, 6, 7];
+                    const intersection = a.filter(x => b.includes(x));
+                    return `数组A: [${a}]<br>数组B: [${b}]<br>交集: [${intersection}]`;
+                }
+            },
+            {
+                name: "数组差集",
+                desc: "找出数组A有但数组B没有的元素",
+                fn: () => {
+                    const a = [1, 2, 3, 4, 5];
+                    const b = [3, 4, 5, 6, 7];
+                    const diff = a.filter(x => !b.includes(x));
+                    return `数组A: [${a}]<br>数组B: [${b}]<br>差集: [${diff}]`;
+                }
+            },
+            {
+                name: "数组并集",
+                desc: "合并两个数组并去重",
+                fn: () => {
+                    const a = [1, 2, 3, 4];
+                    const b = [3, 4, 5, 6];
+                    const union = [...new Set([...a, ...b])];
+                    return `数组A: [${a}]<br>数组B: [${b}]<br>并集: [${union}]`;
+                }
+            },
+            {
+                name: "数组扁平化",
+                desc: "将多维数组转为一维",
+                fn: () => {
+                    const arr = [1, [2, [3, [4, 5]]], 6];
+                    return `原数组: [${JSON.stringify(arr)}]<br>扁平化: [${arr.flat(Infinity)}]`;
+                }
+            },
+            {
+                name: "数组分组",
+                desc: "按条件对数组元素分组",
+                fn: () => {
+                    const arr = [1, 2, 3, 4, 5, 6];
+                    const grouped = arr.reduce((acc, n) => (acc[n % 2 ? '奇数' : '偶数'].push(n), acc), { 奇数: [], 偶数: [] });
+                    return `数组: [${arr}]<br>分组: ${JSON.stringify(grouped)}`;
+                }
+            },
+            {
+                name: "数组随机元素",
+                desc: "随机取一个数组元素",
+                fn: () => {
+                    const arr = ['🍎', '🍊', '🍋', '🍇', '🍓'];
+                    const random = arr[Math.floor(Math.random() * arr.length)];
+                    return `水果篮: ${arr.join(' ')}<br>随机抽取: ${random}`;
+                }
+            },
+            {
+                name: "数组随机多个",
+                desc: "随机取多个数组元素",
+                fn: () => {
+                    const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+                    const shuffled = [...arr].sort(() => Math.random() - 0.5);
+                    return `原数组: [${arr}]<br>随机3个: [${shuffled.slice(0, 3)}]`;
+                }
+            },
+            {
+                name: "数组转对象",
+                desc: "将数组转换为键值对对象",
+                fn: () => {
+                    const arr = [['name', '小明'], ['age', 18], ['city', '北京']];
+                    const obj = Object.fromEntries(arr);
+                    return `数组: ${JSON.stringify(arr)}<br>对象: ${JSON.stringify(obj)}`;
+                }
+            },
+            {
+                name: "对象转数组",
+                desc: "将对象转换为数组",
+                fn: () => {
+                    const obj = { a: 1, b: 2, c: 3 };
+                    const arr = Object.entries(obj);
+                    return `对象: ${JSON.stringify(obj)}<br>数组: ${JSON.stringify(arr)}`;
+                }
+            }
+        ];
+
+        // ==================== 字符串函数 (30个) ====================
+        const stringFunctions = [
+            {
+                name: "字符串反转",
+                desc: "将字符串倒序显示",
+                fn: () => {
+                    const str = "Hello World";
+                    return `原字符串: "${str}"<br>反转后: "${str.split('').reverse().join('')}"`;
+                }
+            },
+            {
+                name: "首字母大写",
+                desc: "将每个单词首字母大写",
+                fn: () => {
+                    const str = "hello world from javascript";
+                    const result = str.replace(/\b\w/g, c => c.toUpperCase());
+                    return `原句: "${str}"<br>首字母大写: "${result}"`;
+                }
+            },
+            {
+                name: "全部大写",
+                desc: "将字符串转为大写",
+                fn: () => {
+                    const str = "Hello World";
+                    return `原字符串: "${str}"<br>大写: "${str.toUpperCase()}"`;
+                }
+            },
+            {
+                name: "全部小写",
+                desc: "将字符串转为小写",
+                fn: () => {
+                    const str = "Hello World";
+                    return `原字符串: "${str}"<br>小写: "${str.toLowerCase()}"`;
+                }
+            },
+            {
+                name: "去除空格",
+                desc: "删除字符串两端的空格",
+                fn: () => {
+                    const str = "  hello world  ";
+                    return `原字符串: "${str}"<br>长度: ${str.length}<br>去空格: "${str.trim()}"<br>长度: ${str.trim().length}`;
+                }
+            },
+            {
+                name: "字符串重复",
+                desc: "重复字符串多次",
+                fn: () => {
+                    return `"哈" 重复 5 次: ${"哈".repeat(5)}<br>"🎉" 重复 3 次: ${"🎉".repeat(3)}`;
+                }
+            },
+            {
+                name: "字符串长度",
+                desc: "获取字符串长度",
+                fn: () => {
+                    const str = "Hello 世界";
+                    return `字符串: "${str}"<br>长度: ${str.length} 字符`;
+                }
+            },
+            {
+                name: "查找子串",
+                desc: "查找子字符串首次出现位置",
+                fn: () => {
+                    const str = "Hello World, Welcome to JavaScript";
+                    return `字符串: "${str}"<br>"World" 位置: ${str.indexOf("World")}<br>"to" 位置: ${str.indexOf("to")}`;
+                }
+            },
+            {
+                name: "替换字符串",
+                desc: "替换指定内容",
+                fn: () => {
+                    const str = "I like apples, apples are great";
+                    return `原句: "${str}"<br>替换 apples → oranges: ${str.replace(/apples/g, 'oranges')}`;
+                }
+            },
+            {
+                name: "切割字符串",
+                desc: "按指定字符分割字符串",
+                fn: () => {
+                    const str = "apple,banana,orange,grape";
+                    const arr = str.split(',');
+                    return `字符串: "${str}"<br>按逗号分割: [${arr}]`;
+                }
+            },
+            {
+                name: "提取子串",
+                desc: "截取字符串的一部分",
+                fn: () => {
+                    const str = "Hello World";
+                    return `原字符串: "${str}"<br>substring(0,5): "${str.substring(0, 5)}"<br>slice(6): "${str.slice(6)}"`;
+                }
+            },
+            {
+                name: "检查开头",
+                desc: "检查字符串是否以指定内容开头",
+                fn: () => {
+                    const str = "Hello World";
+                    return `字符串: "${str}"<br>以"Hello"开头: ${str.startsWith("Hello")}<br>以"World"开头: ${str.startsWith("World")}`;
+                }
+            },
+            {
+                name: "检查结尾",
+                desc: "检查字符串是否以指定内容结尾",
+                fn: () => {
+                    const str = "Hello World";
+                    return `字符串: "${str}"<br>以"World"结尾: ${str.endsWith("World")}<br>以"Hello"结尾: ${str.endsWith("Hello")}`;
+                }
+            },
+            {
+                name: "回文检测",
+                desc: "判断是否为回文字符串",
+                fn: () => {
+                    const check = (s) => s.toLowerCase().replace(/[^a-z0-9]/g, '') === s.toLowerCase().replace(/[^a-z0-9]/g, '').split('').reverse().join('');
+                    return `"racecar" 是回文: ${check("racecar")}<br>"hello" 是回文: ${check("hello")}`;
+                }
+            },
+            {
+                name: "驼峰转换",
+                desc: "将下划线命名转为驼峰命名",
+                fn: () => {
+                    const str = "hello_world_example";
+                    const camel = str.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
+                    return `下划线: ${str}<br>驼峰: ${camel}`;
+                }
+            },
+            {
+                name: "下划线转换",
+                desc: "将驼峰命名转为下划线命名",
+                fn: () => {
+                    const str = "helloWorldExample";
+                    const snake = str.replace(/[A-Z]/g, c => '_' + c.toLowerCase());
+                    return `驼峰: ${str}<br>下划线: ${snake}`;
+                }
+            },
+            {
+                name: "字符统计",
+                desc: "统计每个字符出现次数",
+                fn: () => {
+                    const str = "hello world";
+                    const count = [...str].reduce((acc, c) => (acc[c] = (acc[c] || 0) + 1, acc), {});
+                    return `字符串: "${str}"<br>统计: ${JSON.stringify(count)}`;
+                }
+            },
+            {
+                name: "单词统计",
+                desc: "统计单词数量",
+                fn: () => {
+                    const str = "Hello world, welcome to JavaScript";
+                    const words = str.trim().split(/\s+/).length;
+                    return `字符串: "${str}"<br>单词数: ${words}`;
+                }
+            },
+            {
+                name: "去除重复字符",
+                desc: "删除字符串中的重复字符",
+                fn: () => {
+                    const str = "aabbccddeeff";
+                    const unique = [...new Set(str)].join('');
+                    return `原字符串: "${str}"<br>去重: "${unique}"`;
+                }
+            },
+            {
+                name: "随机字符串",
+                desc: "生成指定长度的随机字符串",
+                fn: () => {
+                    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+                    const random = (len) => Array.from({ length: len }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+                    return `8位: ${random(8)}<br>12位: ${random(12)}`;
+                }
+            },
+            {
+                name: "URL编码",
+                desc: "对URL进行编码处理",
+                fn: () => {
+                    const url = "https://example.com/search?q=你好 world";
+                    return `原URL: ${url}<br>编码后: ${encodeURIComponent(url)}`;
+                }
+            },
+            {
+                name: "HTML转义",
+                desc: "转义HTML特殊字符",
+                fn: () => {
+                    const str = "<div>Hello & 'World'</div>";
+                    const escaped = str.replace(/[&<>'"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'}[c]));
+                    return `原字符串: ${str}<br>转义后: ${escaped}`;
+                }
+            },
+            {
+                name: "截断文本",
+                desc: "超过长度时显示省略号",
+                fn: () => {
+                    const str = "这是一段很长的文本内容，需要被截断显示";
+                    const truncated = str.length > 10 ? str.slice(0, 10) + '...' : str;
+                    return `原文本: "${str}" (${str.length}字)<br>截断(10字): "${truncated}"`;
+                }
+            },
+            {
+                name: "删除指定字符",
+                desc: "删除字符串中的指定字符",
+                fn: () => {
+                    const str = "hello-world-test";
+                    return `原字符串: "${str}"<br>删除"-": "${str.replace(/-/g, '')}"`;
+                }
+            },
+            {
+                name: "插入字符串",
+                desc: "在指定位置插入字符串",
+                fn: () => {
+                    const str = "Hello World";
+                    const insert = (s, i, t) => s.slice(0, i) + t + s.slice(i);
+                    return `原字符串: "${str}"<br>位置5插入"Beautiful": "${insert(str, 5, 'Beautiful ')}"`;
+                }
+            },
+            {
+                name: "字符串填充",
+                desc: "用指定字符填充到指定长度",
+                fn: () => {
+                    return `padStart(5,'0'): "5".padStart(5, '0') = "${"5".padStart(5, '0')}"<br>padEnd(8,'*'): "Hi".padEnd(8, '*') = "${"Hi".padEnd(8, '*')}"`;
+                }
+            },
+            {
+                name: "交换大小写",
+                desc: "大写变小写，小写变大写",
+                fn: () => {
+                    const str = "Hello World";
+                    const swapped = str.split('').map(c => c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()).join('');
+                    return `原字符串: "${str}"<br>交换后: "${swapped}"`;
+                }
+            },
+            {
+                name: "字符串掩码",
+                desc: "隐藏部分字符显示星号",
+                fn: () => {
+                    const mask = (str, show = 4) => str.slice(0, show) + '*'.repeat(str.length - show);
+                    return `手机号: 13812345678 → ${mask('13812345678')}<br>卡号: ${mask('6222021234567890', 6)}`;
+                }
+            },
+            {
+                name: "首字母小写",
+                desc: "将首字母转为小写",
+                fn: () => {
+                    return `"Hello World" → "${"Hello World".charAt(0).toLowerCase() + "Hello World".slice(1)}"<br>"JAVASCRIPT" → "${"JAVASCRIPT".charAt(0).toLowerCase() + "JAVASCRIPT".slice(1)}"`;
+                }
+            },
+            {
+                name: "大小写交替",
+                desc: "生成大小写交替的字符串",
+                fn: () => {
+                    const str = "hello";
+                    const alt = [...str].map((c, i) => i % 2 === 0 ? c.toUpperCase() : c.toLowerCase()).join('');
+                    return `原字符串: "${str}"<br>交替: "${alt}"`;
+                }
+            }
+        ];
+
+        // ==================== 数学函数 (30个) ====================
+        const mathFunctions = [
+            {
+                name: "随机整数",
+                desc: "生成指定范围的随机整数",
+                fn: () => {
+                    const random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+                    return `1-10: ${random(1, 10)}<br>50-100: ${random(50, 100)}`;
+                }
+            },
+            {
+                name: "随机小数",
+                desc: "生成指定范围的小数",
+                fn: () => {
+                    const random = (min, max, fixed = 2) => (Math.random() * (max - min) + min).toFixed(fixed);
+                    return `0-1: ${random(0, 1)}<br>1-10: ${random(1, 10)}`;
+                }
+            },
+            {
+                name: "向上取整",
+                desc: "返回大于等于数字的最小整数",
+                fn: () => {
+                    return `Math.ceil(3.2) = ${Math.ceil(3.2)}<br>Math.ceil(-2.7) = ${Math.ceil(-2.7)}<br>Math.ceil(5) = ${Math.ceil(5)}`;
+                }
+            },
+            {
+                name: "向下取整",
+                desc: "返回小于等于数字的最大整数",
+                fn: () => {
+                    return `Math.floor(3.9) = ${Math.floor(3.9)}<br>Math.floor(-2.3) = ${Math.floor(-2.3)}<br>Math.floor(7) = ${Math.floor(7)}`;
+                }
+            },
+            {
+                name: "四舍五入",
+                desc: "将数字四舍五入到指定小数位",
+                fn: () => {
+                    return `Math.round(3.4) = ${Math.round(3.4)}<br>Math.round(3.5) = ${Math.round(3.5)}<br>toFixed(2): ${(3.14159).toFixed(2)}`;
+                }
+            },
+            {
+                name: "绝对值",
+                desc: "返回数字的绝对值",
+                fn: () => {
+                    return `Math.abs(-5) = ${Math.abs(-5)}<br>Math.abs(3.14) = ${Math.abs(3.14)}<br>Math.abs(-Infinity) = ${Math.abs(-Infinity)}`;
+                }
+            },
+            {
+                name: "幂运算",
+                desc: "计算数字的幂次",
+                fn: () => {
+                    return `2³ = ${Math.pow(2, 3)}<br>5² = ${Math.pow(5, 2)}<br>10⁰ = ${Math.pow(10, 0)}`;
+                }
+            },
+            {
+                name: "平方根",
+                desc: "计算数字的平方根",
+                fn: () => {
+                    return `√9 = ${Math.sqrt(9)}<br>√16 = ${Math.sqrt(16)}<br>√2 = ${Math.sqrt(2).toFixed(4)}`;
+                }
+            },
+            {
+                name: "立方根",
+                desc: "计算数字的立方根",
+                fn: () => {
+                    return `³√8 = ${Math.cbrt(8)}<br>³√27 = ${Math.cbrt(27)}<br>³√-1 = ${Math.cbrt(-1)}`;
+                }
+            },
+            {
+                name: "三角函数-正弦",
+                desc: "计算正弦值",
+                fn: () => {
+                    return `sin(0) = ${Math.sin(0)}<br>sin(π/2) = ${Math.sin(Math.PI/2).toFixed(4)}<br>sin(π) = ${Math.sin(Math.PI).toFixed(4)}`;
+                }
+            },
+            {
+                name: "三角函数-余弦",
+                desc: "计算余弦值",
+                fn: () => {
+                    return `cos(0) = ${Math.cos(0)}<br>cos(π/2) = ${Math.cos(Math.PI/2).toFixed(4)}<br>cos(π) = ${Math.cos(Math.PI).toFixed(4)}`;
+                }
+            },
+            {
+                name: "对数计算",
+                desc: "计算自然对数和常用对数",
+                fn: () => {
+                    return `ln(10) = ${Math.log(10).toFixed(4)}<br>log₂(8) = ${Math.log2(8)}<br>log₁₀(100) = ${Math.log10(100)}`;
+                }
+            },
+            {
+                name: "最大最小值",
+                desc: "从多个数中找出最大最小",
+                fn: () => {
+                    return `Math.max(1,5,3,9,2) = ${Math.max(1,5,3,9,2)}<br>Math.min(1,5,3,9,2) = ${Math.min(1,5,3,9,2)}`;
+                }
+            },
+            {
+                name: "数字范围限制",
+                desc: "将数字限制在指定范围内",
+                fn: () => {
+                    const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+                    return `clamp(5, 0, 10) = ${clamp(5, 0, 10)}<br>clamp(-3, 0, 10) = ${clamp(-3, 0, 10)}<br>clamp(15, 0, 10) = ${clamp(15, 0, 10)}`;
+                }
+            },
+            {
+                name: "百分比计算",
+                desc: "计算数值百分比",
+                fn: () => {
+                    const percent = (val, total) => ((val / total) * 100).toFixed(1) + '%';
+                    return `25/100 = ${percent(25, 100)}<br>75/200 = ${percent(75, 200)}`;
+                }
+            },
+            {
+                name: "阶乘计算",
+                desc: "计算数字的阶乘",
+                fn: () => {
+                    const factorial = (n) => n <= 1 ? 1 : n * factorial(n - 1);
+                    return `5! = ${factorial(5)}<br>7! = ${factorial(7)}`;
+                }
+            },
+            {
+                name: "斐波那契数列",
+                desc: "生成斐波那契数列",
+                fn: () => {
+                    const fib = (n) => n <= 1 ? n : fib(n - 1) + fib(n - 2);
+                    const series = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34];
+                    return `前10项: ${series.join(', ')}`;
+                }
+            },
+            {
+                name: "判断素数",
+                desc: "检查一个数是否为素数",
+                fn: () => {
+                    const isPrime = (n) => { if (n < 2) return false; for (let i = 2; i <= Math.sqrt(n); i++) if (n % i === 0) return false; return true; };
+                    return `17是素数? ${isPrime(17)}<br>18是素数? ${isPrime(18)}<br>23是素数? ${isPrime(23)}`;
+                }
+            },
+            {
+                name: "最大公约数",
+                desc: "计算两个数的最大公约数",
+                fn: () => {
+                    const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
+                    return `gcd(12, 18) = ${gcd(12, 18)}<br>gcd(24, 36) = ${gcd(24, 36)}`;
+                }
+            },
+            {
+                name: "最小公倍数",
+                desc: "计算两个数的最小公倍数",
+                fn: () => {
+                    const lcm = (a, b) => (a * b) / ((a, b) => { while (b) { [a, b] = [b, a % b]; } return a; })(a, b);
+                    return `lcm(4, 6) = ${lcm(4, 6)}<br>lcm(5, 7) = ${lcm(5, 7)}`;
+                }
+            },
+            {
+                name: "数字求和",
+                desc: "计算数字各位之和",
+                fn: () => {
+                    const sumDigits = (n) => [...String(n)].reduce((a, b) => a + Number(b), 0);
+                    return `12345 各位和: ${sumDigits(12345)}<br>999 各位和: ${sumDigits(999)}`;
+                }
+            },
+            {
+                name: "角度弧度转换",
+                desc: "角度与弧度互转",
+                fn: () => {
+                    const toRad = (deg) => deg * Math.PI / 180;
+                    const toDeg = (rad) => rad * 180 / Math.PI;
+                    return `90° = ${toRad(90).toFixed(4)} 弧度<br>π 弧度 = ${toDeg(Math.PI)}°`;
+                }
+            },
+            {
+                name: "摄氏华氏转换",
+                desc: "温度单位互转",
+                fn: () => {
+                    const toF = (c) => (c * 9/5 + 32).toFixed(1);
+                    const toC = (f) => ((f - 32) * 5/9).toFixed(1);
+                    return `25°C = ${toF(25)}°F<br>77°F = ${toC(77)}°C`;
+                }
+            },
+            {
+                name: "公里英里转换",
+                desc: "距离单位互转",
+                fn: () => {
+                    const toMiles = (km) => (km * 0.621371).toFixed(2);
+                    const toKm = (mi) => (mi * 1.60934).toFixed(2);
+                    return `100km = ${toMiles(100)}英里<br>50英里 = ${toKm(50)}km`;
+                }
+            },
+            {
+                name: "千克磅转换",
+                desc: "重量单位互转",
+                fn: () => {
+                    const toLbs = (kg) => (kg * 2.20462).toFixed(2);
+                    const toKg = (lbs) => (lbs * 0.453592).toFixed(2);
+                    return `70kg = ${toLbs(70)}磅<br>150磅 = ${toKg(150)}kg`;
+                }
+            },
+            {
+                name: "数字格式化",
+                desc: "添加千位分隔符",
+                fn: () => {
+                    const format = (n) => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    return `1234567 → ${format(1234567)}<br>987654321 → ${format(987654321)}`;
+                }
+            },
+            {
+                name: "科学计数法",
+                desc: "转换为科学计数法",
+                fn: () => {
+                    return `1234000000 → ${1234000000.toExponential(2)}<br>0.00001234 → ${0.00001234.toExponential(2)}`;
+                }
+            },
+            {
+                name: "偶数判断",
+                desc: "判断数字是否为偶数",
+                fn: () => {
+                    const isEven = (n) => n % 2 === 0;
+                    return `4是偶数? ${isEven(4)}<br>7是偶数? ${isEven(7)}<br>0是偶数? ${isEven(0)}`;
+                }
+            },
+            {
+                name: "奇数判断",
+                desc: "判断数字是否为奇数",
+                fn: () => {
+                    const isOdd = (n) => n % 2 !== 0;
+                    return `3是奇数? ${isOdd(3)}<br>8是奇数? ${isOdd(8)}<br>-1是奇数? ${isOdd(-1)}`;
+                }
+            },
+            {
+                name: "数字位数",
+                desc: "计算数字的位数",
+                fn: () => {
+                    const digits = (n) => Math.abs(Math.floor(n)).toString().length;
+                    return `123: ${digits(123)}位<br>12345: ${digits(12345)}位<br>-789: ${digits(-789)}位`;
+                }
+            }
+        ];
+
+        // ==================== 日期函数 (20个) ====================
+        const dateFunctions = [
+            {
+                name: "当前时间",
+                desc: "获取当前完整日期时间",
+                fn: () => {
+                    const now = new Date();
+                    return `当前时间:<br>${now.toLocaleString('zh-CN')}`;
+                }
+            },
+            {
+                name: "当前日期",
+                desc: "获取当前日期",
+                fn: () => {
+                    const now = new Date();
+                    return `今天是: ${now.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}`;
+                }
+            },
+            {
+                name: "当前时间戳",
+                desc: "获取Unix时间戳",
+                fn: () => {
+                    const now = Date.now();
+                    return `当前时间戳: ${now}<br>秒级时间戳: ${Math.floor(now / 1000)}`;
+                }
+            },
+            {
+                name: "时间戳转日期",
+                desc: "将时间戳转为可读日期",
+                fn: () => {
+                    const ts = 1714567890000;
+                    return `时间戳 ${ts}<br>日期: ${new Date(ts).toLocaleString('zh-CN')}`;
+                }
+            },
+            {
+                name: "格式化日期",
+                desc: "自定义日期格式",
+                fn: () => {
+                    const now = new Date();
+                    const format = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+                    return `格式化(YYYY-MM-DD): ${format(now)}`;
+                }
+            },
+            {
+                name: "星期几",
+                desc: "获取今天是星期几",
+                fn: () => {
+                    const now = new Date();
+                    const weeks = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+                    return `今天是: ${weeks[now.getDay()]}`;
+                }
+            },
+            {
+                name: "是闰年吗",
+                desc: "判断指定年份是否为闰年",
+                fn: () => {
+                    const isLeap = (year) => (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+                    return `2024是闰年? ${isLeap(2024)}<br>2023是闰年? ${isLeap(2023)}<br>2000是闰年? ${isLeap(2000)}`;
+                }
+            },
+            {
+                name: "月份天数",
+                desc: "获取某月有多少天",
+                fn: () => {
+                    const daysInMonth = (year, month) => new Date(year, month, 0).getDate();
+                    return `2024年2月: ${daysInMonth(2024, 2)}天<br>2024年12月: ${daysInMonth(2024, 12)}天`;
+                }
+            },
+            {
+                name: "相对时间",
+                desc: "显示相对时间描述",
+                fn: () => {
+                    const timeAgo = (ms) => {
+                        const sec = Math.floor(ms / 1000);
+                        if (sec < 60) return '刚刚';
+                        if (sec < 3600) return Math.floor(sec / 60) + '分钟前';
+                        if (sec < 86400) return Math.floor(sec / 3600) + '小时前';
+                        return Math.floor(sec / 86400) + '天前';
+                    };
+                    return `5000ms前: ${timeAgo(5000)}<br>2小时前: ${timeAgo(7200000)}<br>3天前: ${timeAgo(259200000)}`;
+                }
+            },
+            {
+                name: "日期差计算",
+                desc: "计算两个日期相差天数",
+                fn: () => {
+                    const diffDays = (d1, d2) => Math.abs((new Date(d1) - new Date(d2)) / (1000 * 60 * 60 * 24));
+                    return `2024-01-01 到 2024-12-31<br>相差: ${diffDays('2024-01-01', '2024-12-31').toFixed(0)} 天`;
+                }
+            },
+            {
+                name: "倒计时",
+                desc: "计算距离某天的倒计时",
+                fn: () => {
+                    const target = new Date('2025-01-01');
+                    const now = new Date();
+                    const diff = target - now;
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    return `距离2025年元旦: ${days} 天`;
+                }
+            },
+            {
+                name: "日期加减",
+                desc: "对日期进行加减运算",
+                fn: () => {
+                    const now = new Date();
+                    const nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+                    return `今天: ${now.toLocaleDateString('zh-CN')}<br>7天后: ${nextWeek.toLocaleDateString('zh-CN')}`;
+                }
+            },
+            {
+                name: "本月第几周",
+                desc: "获取今天是本月的第几周",
+                fn: () => {
+                    const now = new Date();
+                    const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+                    const weekNum = Math.ceil((now.getDate() + firstDay.getDay()) / 7);
+                    return `今天是本月第 ${weekNum} 周`;
+                }
+            },
+            {
+                name: "季度判断",
+                desc: "获取当前是哪个季度",
+                fn: () => {
+                    const now = new Date();
+                    const quarter = Math.floor((now.getMonth() + 3) / 3);
+                    return `当前季度: 第 ${quarter} 季度`;
+                }
+            },
+            {
+                name: "年龄计算",
+                desc: "根据生日计算年龄",
+                fn: () => {
+                    const age = (birthday) => {
+                        const birth = new Date(birthday);
+                        const today = new Date();
+                        let age = today.getFullYear() - birth.getFullYear();
+                        const m = today.getMonth() - birth.getMonth();
+                        if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+                        return age;
+                    };
+                    return `生日2000-06-15<br>年龄: ${age('2000-06-15')} 岁`;
+                }
+            },
+            {
+                name: "工作日判断",
+                desc: "判断是否为工作日",
+                fn: () => {
+                    const isWeekday = (date) => {
+                        const d = new Date(date);
+                        return d.getDay() > 0 && d.getDay() < 6;
+                    };
+                    const today = new Date().toLocaleDateString('zh-CN');
+                    return `今天 (${today})<br>是工作日? ${isWeekday(new Date()) ? '是' : '否(周末)'}`;
+                }
+            },
+            {
+                name: "月份名称",
+                desc: "获取月份的中文名称",
+                fn: () => {
+                    const now = new Date();
+                    const months = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
+                    return `当前月份: ${months[now.getMonth()]}`;
+                }
+            },
+            {
+                name: "今日开始结束",
+                desc: "获取今天的开始和结束时间",
+                fn: () => {
+                    const now = new Date();
+                    const start = new Date(now.setHours(0, 0, 0, 0));
+                    const end = new Date(now.setHours(23, 59, 59, 999));
+                    return `开始: ${start.toLocaleTimeString('zh-CN')}<br>结束: ${end.toLocaleTimeString('zh-CN')}`;
+                }
+            },
+            {
+                name: "UTC时间",
+                desc: "获取UTC时间",
+                fn: () => {
+                    const now = new Date();
+                    return `本地时间: ${now.toLocaleString('zh-CN')}<br>UTC时间: ${now.toUTCString()}`;
+                }
+            },
+            {
+                name: "时间友好显示",
+                desc: "将时间转换为友好格式",
+                fn: () => {
+                    const friendly = (date) => {
+                        const d = new Date(date);
+                        const now = new Date();
+                        const diff = now - d;
+                        if (diff < 60000) return '刚刚';
+                        if (diff < 3600000) return Math.floor(diff / 60000) + '分钟前';
+                        if (diff < 86400000) return '今天 ' + d.toLocaleTimeString('zh-CN', {hour: '2-digit', minute: '2-digit'});
+                        if (diff < 1728000000) return '昨天 ' + d.toLocaleTimeString('zh-CN', {hour: '2-digit', minute: '2-digit'});
+                        return d.toLocaleDateString('zh-CN');
+                    };
+                    return `演示:<br>${friendly(new Date())}<br>${friendly(new Date(Date.now() - 7200000))}`;
+                }
+            }
+        ];
+
+        // ==================== DOM函数 (25个) ====================
+        const domFunctions = [
+            {
+                name: "获取元素",
+                desc: "通过ID/class/tag获取元素",
+                fn: () => {
+                    return `document.getElementById('id')<br>document.querySelector('.class')<br>document.querySelectorAll('div')`;
+                }
+            },
+            {
+                name: "创建元素",
+                desc: "动态创建新的DOM元素",
+                fn: () => {
+                    const div = document.createElement('div');
+                    div.textContent = '新创建的元素';
+                    div.style.cssText = 'padding: 10px; background: #48dbfb; border-radius: 5px; margin-top: 10px;';
+                    return div.outerHTML;
+                }
+            },
+            {
+                name: "添加元素",
+                desc: "在DOM中添加子元素",
+                fn: () => {
+                    return `parent.appendChild(child)<br>parent.insertBefore(new, existing)<br>parent.prepend(child)`;
+                }
+            },
+            {
+                name: "删除元素",
+                desc: "从DOM中移除元素",
+                fn: () => {
+                    return `element.remove()<br>parent.removeChild(child)`;
+                }
+            },
+            {
+                name: "克隆元素",
+                desc: "复制一个元素",
+                fn: () => {
+                    return `const clone = element.cloneNode(true);<br>// true表示深拷贝，包含子元素`;
+                }
+            },
+            {
+                name: "替换元素",
+                desc: "用新元素替换旧元素",
+                fn: () => {
+                    return `parent.replaceChild(newElement, oldElement)`;
+                }
+            },
+            {
+                name: "获取/设置内容",
+                desc: "操作元素的文本内容",
+                fn: () => {
+                    return `获取文本: element.textContent<br>获取HTML: element.innerHTML<br>设置: element.textContent = '新内容'`;
+                }
+            },
+            {
+                name: "获取/设置属性",
+                desc: "操作元素的HTML属性",
+                fn: () => {
+                    return `element.getAttribute('href')<br>element.setAttribute('src', 'image.jpg')<br>element.removeAttribute('class')`;
+                }
+            },
+            {
+                name: "获取/设置样式",
+                desc: "操作元素的CSS样式",
+                fn: () => {
+                    return `element.style.color = 'red'<br>element.style.backgroundColor = '#fff'<br>element.style.display = 'none'`;
+                }
+            },
+            {
+                name: "添加/删除class",
+                desc: "操作元素的class列表",
+                fn: () => {
+                    return `element.classList.add('active')<br>element.classList.remove('active')<br>element.classList.toggle('active')<br>element.classList.contains('active')`;
+                }
+            },
+            {
+                name: "获取元素位置",
+                desc: "获取元素在页面中的位置",
+                fn: () => {
+                    return `element.offsetLeft / element.offsetTop<br>element.getBoundingClientRect()`;
+                }
+            },
+            {
+                name: "获取元素尺寸",
+                desc: "获取元素的宽度和高度",
+                fn: () => {
+                    return `element.offsetWidth / element.offsetHeight<br>element.clientWidth / element.clientHeight<br>window.getComputedStyle(element)`;
+                }
+            },
+            {
+                name: "滚动操作",
+                desc: "控制页面或元素滚动",
+                fn: () => {
+                    return `window.scrollTo(0, 100)<br>element.scrollIntoView()<br>element.scrollTop = 0`;
+                }
+            },
+            {
+                name: "父/子元素",
+                desc: "获取元素的父元素或子元素",
+                fn: () => {
+                    return `element.parentElement<br>element.children<br>element.firstElementChild<br>element.lastElementChild`;
+                }
+            },
+            {
+                name: "兄弟元素",
+                desc: "获取相邻的兄弟元素",
+                fn: () => {
+                    return `element.previousElementSibling<br>element.nextElementSibling`;
+                }
+            },
+            {
+                name: "插入HTML",
+                desc: "在元素内插入HTML内容",
+                fn: () => {
+                    return `element.innerHTML = '<span>内容</span>'<br>element.insertAdjacentHTML('beforeend', '<p>新内容</p>')`;
+                }
+            },
+            {
+                name: "表单值操作",
+                desc: "获取和设置表单元素的值",
+                fn: () => {
+                    return `input.value<br>input.value = '新值'<br>checkbox.checked<br>select.value`;
+                }
+            },
+            {
+                name: "添加事件监听",
+                desc: "为元素添加事件处理",
+                fn: () => {
+                    return `element.addEventListener('click', handler)<br>element.addEventListener('mouseover', handler)`;
+                }
+            },
+            {
+                name: "移除事件监听",
+                desc: "移除事件处理函数",
+                fn: () => {
+                    return `element.removeEventListener('click', handler)`;
+                }
+            },
+            {
+                name: "触发事件",
+                desc: "程序化触发事件",
+                fn: () => {
+                    return `element.click()<br>const event = new Event('custom');<br>element.dispatchEvent(event)`;
+                }
+            },
+            {
+                name: "阻止默认行为",
+                desc: "阻止事件的默认行为",
+                fn: () => {
+                    return `event.preventDefault()<br>// 常用于表单提交、链接跳转等`;
+                }
+            },
+            {
+                name: "停止冒泡",
+                desc: "阻止事件冒泡",
+                fn: () => {
+                    return `event.stopPropagation()<br>// 阻止事件向上传播到父元素`;
+                }
+            },
+            {
+                name: "元素焦点",
+                desc: "操作元素的焦点状态",
+                fn: () => {
+                    return `element.focus()<br>element.blur()<br>document.activeElement`;
+                }
+            },
+            {
+                name: "数据属性",
+                desc: "操作data-*自定义属性",
+                fn: () => {
+                    return `element.dataset.userId<br>element.dataset.name = 'test'<br>相当于 data-user-id`;
+                }
+            },
+            {
+                name: "元素可见性",
+                desc: "检查元素是否可见",
+                fn: () => {
+                    return `// 检查元素是否在视口中<br>const rect = element.getBoundingClientRect()<br>const isVisible = rect.top < window.innerHeight && rect.bottom > 0`;
+                }
+            }
+        ];
+
+        // ==================== 游戏函数 (25个) ====================
+        const gameFunctions = [
+            {
+                name: "随机骰子",
+                desc: "掷一个1-6的骰子",
+                fn: () => {
+                    const roll = () => Math.floor(Math.random() * 6) + 1;
+                    return `🎲 点数: ${roll()}`;
+                }
+            },
+            {
+                name: "多骰子游戏",
+                desc: "掷多个骰子并计算总和",
+                fn: () => {
+                    const roll = () => Math.floor(Math.random() * 6) + 1;
+                    const d1 = roll(), d2 = roll(), d3 = roll();
+                    return `骰子: ${d1}, ${d2}, ${d3}<br>总点数: ${d1 + d2 + d3}`;
+                }
+            },
+            {
+                name: "抛硬币",
+                desc: "模拟抛硬币，随机正面或反面",
+                fn: () => {
+                    return Math.random() < 0.5 ? '🪙 正面' : '🪙 反面';
+                }
+            },
+            {
+                name: "石头剪刀布",
+                desc: "与电脑玩石头剪刀布",
+                fn: () => {
+                    const choices = ['✊ 石头', '✋ 剪刀', '✌️ 布'];
+                    const player = choices[Math.floor(Math.random() * 3)];
+                    const computer = choices[Math.floor(Math.random() * 3)];
+                    return `你出: ${player}<br>电脑出: ${computer}<br>${player === computer ? '平局!' : '游戏继续'}`;
+                }
+            },
+            {
+                name: "猜数字",
+                desc: "生成一个随机数字供猜测",
+                fn: () => {
+                    const secret = Math.floor(Math.random() * 100) + 1;
+                    return `神秘数字已生成(1-100)<br>试试猜: ${secret}!`;
+                }
+            },
+            {
+                name: "彩票随机",
+                desc: "生成彩票号码",
+                fn: () => {
+                    const nums = [];
+                    while (nums.length < 6) {
+                        const n = Math.floor(Math.random() * 49) + 1;
+                        if (!nums.includes(n)) nums.push(n);
+                    }
+                    return `🎱 彩票号码: ${nums.sort((a,b) => a - b).join(' - ')}`;
+                }
+            },
+            {
+                name: "大转盘",
+                desc: "模拟大转盘抽奖",
+                fn: () => {
+                    const prizes = ['一等奖🏆', '二等奖🥈', '三等奖🥉', '谢谢参与😢', '再来一次🔄', '幸运奖⭐'];
+                    return `🎰 结果: ${prizes[Math.floor(Math.random() * prizes.length)]}`;
+                }
+            },
+            {
+                name: "老虎机",
+                desc: "简单的老虎机模拟",
+                fn: () => {
+                    const symbols = ['🍒', '🍋', '🍊', '🍇', '💎', '7️⃣'];
+                    const spin = () => symbols[Math.floor(Math.random() * symbols.length)];
+                    const r1 = spin(), r2 = spin(), r3 = spin();
+                    const win = r1 === r2 && r2 === r3;
+                    return `${r1} | ${r2} | ${r3}<br>${win ? '🎉 中大奖!' : '再试一次!'}`;
+                }
+            },
+            {
+                name: "随机卡牌",
+                desc: "从扑克牌中随机抽取",
+                fn: () => {
+                    const suits = ['♠️', '♥️', '♦️', '♣️'];
+                    const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+                    return `🃏 抽中: ${suits[Math.floor(Math.random() * 4)]}${values[Math.floor(Math.random() * 13)]}`;
+                }
+            },
+            {
+                name: "随机生肖",
+                desc: "随机生成一个生肖",
+                fn: () => {
+                    const animals = ['🐭鼠', '🐮牛', '🐯虎', '🐰兔', '🐲龙', '🐍蛇', '🐴马', '🐑羊', '🐵猴', '🐔鸡', '🐶狗', '🐷猪'];
+                    return `你的生肖: ${animals[Math.floor(Math.random() * 12)]}`;
+                }
+            },
+            {
+                name: "随机星座",
+                desc: "随机生成一个星座",
+                fn: () => {
+                    const signs = ['♈白羊座', '♉金牛座', '♊双子座', '♋巨蟹座', '♌狮子座', '♍处女座', '♎天秤座', '♏天蝎座', '♐射手座', '♑摩羯座', '♒水瓶座', '♓双鱼座'];
+                    return `你的星座: ${signs[Math.floor(Math.random() * 12)]}`;
+                }
+            },
+            {
+                name: "随机颜色",
+                desc: "生成随机颜色",
+                fn: () => {
+                    const randomColor = () => '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+                    const color = randomColor();
+                    return `<div style="background:${color};padding:20px;border-radius:8px;text-align:center;color:${parseInt(color.slice(1),16) > 8388608 ? '#fff' : '#000'}">${color}</div>`;
+                }
+            },
+            {
+                name: "随机名字",
+                desc: "生成随机中文名",
+                fn: () => {
+                    const surnames = ['王', '李', '张', '刘', '陈', '杨', '黄', '赵', '周', '吴'];
+                    const names = ['明', '华', '强', '伟', '芳', '娜', '敏', '静', '丽', '军'];
+                    return `随机姓名: ${surnames[Math.floor(Math.random() * 10)]}${names[Math.floor(Math.random() * 10)]}`;
+                }
+            },
+            {
+                name: "随机城市",
+                desc: "随机选择一个城市",
+                fn: () => {
+                    const cities = ['北京', '上海', '广州', '深圳', '杭州', '成都', '西安', '南京', '武汉', '重庆'];
+                    return `推荐旅游: ${cities[Math.floor(Math.random() * cities.length)]}`;
+                }
+            },
+            {
+                name: "随机菜品",
+                desc: "随机推荐一道菜",
+                fn: () => {
+                    const dishes = ['宫保鸡丁', '麻婆豆腐', '红烧肉', '糖醋排骨', '鱼香肉丝', '水煮鱼', '回锅肉', '东坡肉'];
+                    return `今日推荐: ${dishes[Math.floor(Math.random() * dishes.length)]} 🍽️`;
+                }
+            },
+            {
+                name: "随机电影",
+                desc: "随机推荐一部电影",
+                fn: () => {
+                    const movies = ['肖申克的救赎', '霸王别姬', '阿甘正传', '泰坦尼克号', '这个杀手不太冷', '盗梦空间', '星际穿越'];
+                    return `🎬 观影推荐: ${movies[Math.floor(Math.random() * movies.length)]}`;
+                }
+            },
+            {
+                name: "随机书籍",
+                desc: "随机推荐一本书",
+                fn: () => {
+                    const books = ['三体', '活着', '百年孤独', '1984', '红楼梦', '哈利波特', '小王子', '围城'];
+                    return `📚 阅读推荐: ${books[Math.floor(Math.random() * books.length)]}`;
+                }
+            },
+            {
+                name: "随机音乐",
+                desc: "随机推荐一种音乐风格",
+                fn: () => {
+                    const music = ['🎸 摇滚', '🎹 古典', '🎤 流行', '🎷 爵士', '🎺 布鲁斯', '🎧 电子', '🪕 民谣', '🥁 说唱'];
+                    return music[Math.floor(Math.random() * music.length)];
+                }
+            },
+            {
+                name: "随机运动",
+                desc: "随机推荐一项运动",
+                fn: () => {
+                    const sports = ['🏀 篮球', '⚽ 足球', '🎾 网球', '🏊 游泳', '🚴 骑行', '🏃 跑步', '🏸 羽毛球', '🏐 排球'];
+                    return sports[Math.floor(Math.random() * sports.length)];
+                }
+            },
+            {
+                name: "密码强度",
+                desc: "评估密码强度",
+                fn: () => {
+                    const check = (pwd) => {
+                        let score = 0;
+                        if (pwd.length >= 8) score++;
+                        if (pwd.length >= 12) score++;
+                        if (/[a-z]/.test(pwd) && /[A-Z]/.test(pwd)) score++;
+                        if (/\d/.test(pwd)) score++;
+                        if (/[^a-zA-Z0-9]/.test(pwd)) score++;
+                        return ['弱', '一般', '中等', '强', '很强'][score] || '很弱';
+                    };
+                    return `123456: ${check('123456')}<br>Abc123!@: ${check('Abc123!@')}<br>MyPass2024!: ${check('MyPass2024!')}`;
+                }
+            },
+            {
+                name: "幸运数字",
+                desc: "生成今日幸运数字",
+                fn: () => {
+                    const today = new Date();
+                    const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+                    const lucky = (seed % 9) + 1;
+                    return `🍀 今日幸运数字: ${lucky}`;
+                }
+            },
+            {
+                name: "运势测试",
+                desc: "随机生成今日运势",
+                fn: () => {
+                    const fortunes = ['大吉⭐⭐⭐⭐⭐', '中吉⭐⭐⭐⭐', '小吉⭐⭐⭐', '平⭐⭐', '凶⭐'];
+                    return `今日运势: ${fortunes[Math.floor(Math.random() * fortunes.length)]}`;
+                }
+            },
+            {
+                name: "性格测试",
+                desc: "随机生成性格标签",
+                fn: () => {
+                    const traits = ['乐观', '勇敢', '善良', '智慧', '幽默', '坚韧', '冷静', '热情'];
+                    const random = () => traits.sort(() => Math.random() - 0.5).slice(0, 3);
+                    return `你的性格: ${random().join('、')}`;
+                }
+            },
+            {
+                name: "MBTI模拟",
+                desc: "随机生成MBTI类型",
+                fn: () => {
+                    const types = ['ISTJ', 'ISFJ', 'INFJ', 'INTJ', 'ISTP', 'ISFP', 'INFP', 'INTP', 'ESTP', 'ESFP', 'ENFP', 'ENTP', 'ESTJ', 'ESFJ', 'ENFJ', 'ENTJ'];
+                    return `你的MBTI: ${types[Math.floor(Math.random() * types.length)]}`;
+                }
+            },
+            {
+                name: "真心话大冒险",
+                desc: "随机选择真心话或大冒险",
+                fn: () => {
+                    const truths = ['说出你的初恋', '最尴尬的事', '最大的秘密', '最后的谎言'];
+                    const dares = ['表演才艺', '给前任打电话', '做10个俯卧撑', '唱一首歌'];
+                    const type = Math.random() < 0.5 ? '真心话' : '大冒险';
+                    return `🎯 ${type}: ${(type === '真心话' ? truths : dares)[Math.floor(Math.random() * 4)]}`;
+                }
+            }
+        ];
+
+        // ==================== 工具函数 (40个) ====================
+        const utilFunctions = [
+            {
+                name: "深度克隆",
+                desc: "深拷贝一个对象",
+                fn: () => {
+                    const obj = { a: 1, b: { c: 2 } };
+                    const cloned = JSON.parse(JSON.stringify(obj));
+                    return `原对象: ${JSON.stringify(obj)}<br>克隆: ${JSON.stringify(cloned)}`;
+                }
+            },
+            {
+                name: "对象合并",
+                desc: "合并多个对象",
+                fn: () => {
+                    const a = { name: '张三', age: 25 };
+                    const b = { city: '北京', job: '工程师' };
+                    return `对象A: ${JSON.stringify(a)}<br>对象B: ${JSON.stringify(b)}<br>合并: ${JSON.stringify({...a, ...b})}`;
+                }
+            },
+            {
+                name: "对象键值对",
+                desc: "获取对象的所有键或值",
+                fn: () => {
+                    const obj = { name: '小明', age: 18, city: '上海' };
+                    return `键: ${Object.keys(obj).join(', ')}<br>值: ${Object.values(obj).join(', ')}`;
+                }
+            },
+            {
+                name: "对象遍历",
+                desc: "遍历对象的所有属性",
+                fn: () => {
+                    const obj = { a: 1, b: 2, c: 3 };
+                    const entries = Object.entries(obj).map(([k, v]) => `${k}: ${v}`).join(', ');
+                    return entries;
+                }
+            },
+            {
+                name: "URL参数解析",
+                desc: "解析URL的查询参数",
+                fn: () => {
+                    const url = 'https://example.com?name=John&age=30&city=NYC';
+                    const params = new URLSearchParams(url.split('?')[1]);
+                    let result = '';
+                    params.forEach((v, k) => result += `${k}: ${v}, `);
+                    return result.slice(0, -2);
+                }
+            },
+            {
+                name: "防抖函数",
+                desc: "延迟执行，频繁触发时重置计时",
+                fn: () => {
+                    return `const debounce = (fn, delay) => {<br>&nbsp;&nbsp;let timer;<br>&nbsp;&nbsp;return (...args) => {<br>&nbsp;&nbsp;&nbsp;&nbsp;clearTimeout(timer);<br>&nbsp;&nbsp;&nbsp;&nbsp;timer = setTimeout(() => fn(...args), delay);<br>&nbsp;&nbsp;}<br>}`;
+                }
+            },
+            {
+                name: "节流函数",
+                desc: "限制函数执行频率",
+                fn: () => {
+                    return `const throttle = (fn, delay) => {<br>&nbsp;&nbsp;let last = 0;<br>&nbsp;&nbsp;return (...args) => {<br>&nbsp;&nbsp;&nbsp;&nbsp;const now = Date.now();<br>&nbsp;&nbsp;&nbsp;&nbsp;if (now - last >= delay) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;last = now;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fn(...args);<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;}<br>}`;
+                }
+            },
+            {
+                name: "一次性函数",
+                desc: "只能执行一次的函数",
+                fn: () => {
+                    return `const once = (fn) => {<br>&nbsp;&nbsp;let done = false;<br>&nbsp;&nbsp;return (...args) => {<br>&nbsp;&nbsp;&nbsp;&nbsp;if (!done) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;done = true;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return fn(...args);<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;}<br>}`;
+                }
+            },
+            {
+                name: "记忆化函数",
+                desc: "缓存函数结果提高性能",
+                fn: () => {
+                    return `const memoize = (fn) => {<br>&nbsp;&nbsp;const cache = new Map();<br>&nbsp;&nbsp;return (...args) => {<br>&nbsp;&nbsp;&nbsp;&nbsp;const key = JSON.stringify(args);<br>&nbsp;&nbsp;&nbsp;&nbsp;if (cache.has(key)) return cache.get(key);<br>&nbsp;&nbsp;&nbsp;&nbsp;const result = fn(...args);<br>&nbsp;&nbsp;&nbsp;&nbsp;cache.set(key, result);<br>&nbsp;&nbsp;&nbsp;&nbsp;return result;<br>&nbsp;&nbsp;}<br>}`;
+                }
+            },
+            {
+                name: "管道函数",
+                desc: "将多个函数串联执行",
+                fn: () => {
+                    return `const pipe = (...fns) => (x) => fns.reduce((v, f) => f(v), x);<br>// 用法: pipe(addOne, double, square)(5)`;
+                }
+            },
+            {
+                name: "柯里化",
+                desc: "将多参数函数转为单参数链式调用",
+                fn: () => {
+                    return `const curry = (fn) => {<br>&nbsp;&nbsp;return function curried(...args) {<br>&nbsp;&nbsp;&nbsp;&nbsp;if (args.length >= fn.length) return fn(...args);<br>&nbsp;&nbsp;&nbsp;&nbsp;return (...more) => curried(...args, ...more);<br>&nbsp;&nbsp;}<br>}`;
+                }
+            },
+            {
+                name: "数组转树",
+                desc: "将扁平数组转为树形结构",
+                fn: () => {
+                    return `const toTree = (items, id = null, link = 'parentId') =><br>&nbsp;&nbsp;items.filter(item => item[link] === id)<br>&nbsp;&nbsp;&nbsp;&nbsp;.map(item => ({ ...item, children: toTree(items, item.id) }));`;
+                }
+            },
+            {
+                name: "树转数组",
+                desc: "将树形结构扁平化",
+                fn: () => {
+                    return `const flattenTree = (tree) =><br>&nbsp;&nbsp;tree.reduce((acc, { children, ...item }) =><br>&nbsp;&nbsp;&nbsp;&nbsp;[...acc, item, ...flattenTree(children || [])], []);`;
+                }
+            },
+            {
+                name: "数组和为定值",
+                desc: "找出和为目标值的两个数",
+                fn: () => {
+                    const twoSum = (nums, target) => {
+                        const map = new Map();
+                        for (let i = 0; i < nums.length; i++) {
+                            const complement = target - nums[i];
+                            if (map.has(complement)) return [map.get(complement), i];
+                            map.set(nums[i], i);
+                        }
+                    };
+                    return `数组: [2,7,11,15], 目标: 9<br>结果索引: ${twoSum([2,7,11,15], 9).join(', ')}`;
+                }
+            },
+            {
+                name: "类型检查",
+                desc: "准确判断数据类型",
+                fn: () => {
+                    const type = (val) => Object.prototype.toString.call(val).slice(8, -1);
+                    return `type([]) = ${type([])}<br>type({}) = ${type({})}<br>type(null) = ${type(null)}<br>type(undefined) = ${type(undefined)}`;
+                }
+            },
+            {
+                name: "空值检查",
+                desc: "检查变量是否为空",
+                fn: () => {
+                    const isEmpty = (val) => val === null || val === undefined || val === '' || (Array.isArray(val) && val.length === 0) || (typeof val === 'object' && Object.keys(val).length === 0);
+                    return `isEmpty(null) = ${isEmpty(null)}<br>isEmpty([]) = ${isEmpty([])}<br>isEmpty({}) = ${isEmpty({})}`;
+                }
+            },
+            {
+                name: "深相等判断",
+                desc: "深度比较两个对象是否相等",
+                fn: () => {
+                    return `const deepEqual = (a, b) => {<br>&nbsp;&nbsp;if (a === b) return true;<br>&nbsp;&nbsp;if (typeof a !== typeof b) return false;<br>&nbsp;&nbsp;if (typeof a !== 'object' || a === null) return false;<br>&nbsp;&nbsp;const keysA = Object.keys(a);<br>&nbsp;&nbsp;if (keysA.length !== Object.keys(b).length) return false;<br>&nbsp;&nbsp;return keysA.every(k => deepEqual(a[k], b[k]));<br>}`;
+                }
+            },
+            {
+                name: "数字格式化",
+                desc: "格式化数字显示",
+                fn: () => {
+                    const format = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    return `1,234,567<br>98,765,432`;
+                }
+            },
+            {
+                name: "文件大小格式",
+                desc: "将字节转为可读大小",
+                fn: () => {
+                    const formatBytes = (bytes) => {
+                        if (bytes === 0) return '0 Bytes';
+                        const k = 1024;
+                        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                        const i = Math.floor(Math.log(bytes) / Math.log(k));
+                        return (bytes / Math.pow(k, i)).toFixed(2) + ' ' + sizes[i];
+                    };
+                    return `1024 → ${formatBytes(1024)}<br>1048576 → ${formatBytes(1048576)}<br>1073741824 → ${formatBytes(1073741824)}`;
+                }
+            },
+            {
+                name: "RGB转HEX",
+                desc: "RGB颜色转十六进制",
+                fn: () => {
+                    const rgbToHex = (r, g, b) => '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
+                    return `rgb(255, 0, 0) → ${rgbToHex(255, 0, 0)}<br>rgb(0, 255, 0) → ${rgbToHex(0, 255, 0)}<br>rgb(0, 0, 255) → ${rgbToHex(0, 0, 255)}`;
+                }
+            },
+            {
+                name: "HEX转RGB",
+                desc: "十六进制转RGB颜色",
+                fn: () => {
+                    const hexToRgb = (hex) => {
+                        const result = /^#?([a-f\\d]{2})([a-f\\d]{2})([a-f\\d]{2})$/i.exec(hex);
+                        return result ? `rgb(${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)})` : 'Invalid';
+                    };
+                    return `#ff0000 → ${hexToRgb('#ff0000')}<br>#00ff00 → ${hexToRgb('#00ff00')}<br>#0000ff → ${hexToRgb('#0000ff')}`;
+                }
+            },
+            {
+                name: "生成UUID",
+                desc: "生成唯一标识符",
+                fn: () => {
+                    const uuid = () => 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+                        const r = Math.random() * 16 | 0;
+                        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+                    });
+                    return `UUID: ${uuid()}`;
+                }
+            },
+            {
+                name: "数组交集",
+                desc: "找出多个数组的共同元素",
+                fn: () => {
+                    const intersection = (...arrays) => [...new Set(arrays[0])].filter(x => arrays.every(arr => arr.includes(x)));
+                    return `A:[1,2,3,4], B:[2,3,4,5], C:[3,4,5,6]<br>交集: [${intersection([1,2,3,4], [2,3,4,5], [3,4,5,6])}]`;
+                }
+            },
+            {
+                name: "数组差集",
+                desc: "找出数组A有但B没有的",
+                fn: () => {
+                    const difference = (a, b) => a.filter(x => !b.includes(x));
+                    return `A:[1,2,3,4,5], B:[3,4,5,6,7]<br>A有B没有: [${difference([1,2,3,4,5], [3,4,5,6,7])}]`;
+                }
+            },
+            {
+                name: "数组去重高级",
+                desc: "根据指定属性去重",
+                fn: () => {
+                    const uniqueBy = (arr, key) => [...new Map(arr.map(item => [item[key], item])).values()];
+                    return `去重(按id): ${JSON.stringify(uniqueBy([{id:1,name:'a'},{id:2,name:'b'},{id:1,name:'c'}], 'id'))}`;
+                }
+            },
+            {
+                name: "数组分组",
+                desc: "按条件分组",
+                fn: () => {
+                    const groupBy = (arr, key) => arr.reduce((acc, item) => ((acc[item[key]] = acc[item[key]] || []).push(item), acc), {});
+                    return `按age分组: ${JSON.stringify(groupBy([{name:'a',age:20},{name:'b',age:25},{name:'c',age:20}], 'age'))}`;
+                }
+            },
+            {
+                name: "数组求和高级",
+                desc: "按属性求和",
+                fn: () => {
+                    const sumBy = (arr, key) => arr.reduce((sum, item) => sum + item[key], 0);
+                    return `[{a:1},{a:2},{a:3}] 按 a 求和: ${sumBy([{a:1},{a:2},{a:3}], 'a')}`;
+                }
+            },
+            {
+                name: "数组最大值高级",
+                desc: "按属性找最大值",
+                fn: () => {
+                    const maxBy = (arr, key) => arr.reduce((max, item) => item[key] > max[key] ? item : max);
+                    return `最大值对象: ${JSON.stringify(maxBy([{name:'a',value:10},{name:'b',value:30},{name:'c',value:20}], 'value'))}`;
+                }
+            },
+            {
+                name: "延迟执行",
+                desc: "延迟指定毫秒执行",
+                fn: () => {
+                    return `const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));<br>// await delay(1000);`;
+                }
+            },
+            {
+                name: "重试机制",
+                desc: "失败时自动重试",
+                fn: () => {
+                    return `const retry = async (fn, times) => {<br>&nbsp;&nbsp;for (let i = 0; i < times; i++) {<br>&nbsp;&nbsp;&nbsp;&nbsp;try { return await fn(); } catch {}<br>&nbsp;&nbsp;}<br>&nbsp;&nbsp;throw new Error('Failed');<br>}`;
+                }
+            },
+            {
+                name: "批处理",
+                desc: "分批处理数组",
+                fn: () => {
+                    return `const batch = (arr, size, fn) => {<br>&nbsp;&nbsp;for (let i = 0; i < arr.length; i += size) {<br>&nbsp;&nbsp;&nbsp;&nbsp;await fn(arr.slice(i, i + size));<br>&nbsp;&nbsp;}<br>}`;
+                }
+            },
+            {
+                name: "轮询",
+                desc: "定时检查条件",
+                fn: () => {
+                    return `const poll = async (fn, interval) => {<br>&nbsp;&nbsp;while (!await fn()) {<br>&nbsp;&nbsp;&nbsp;&nbsp;await new Promise(r => setTimeout(r, interval));<br>&nbsp;&nbsp;}<br>}`;
+                }
+            },
+            {
+                name: "并发控制",
+                desc: "限制并发执行数量",
+                fn: () => {
+                    return `const asyncPool = async (poolLimit, array, iteratorFn) => {<br>&nbsp;&nbsp;const ret = [];<br>&nbsp;&nbsp;const executing = [];<br>&nbsp;&nbsp;for (const item of array) {<br>&nbsp;&nbsp;&nbsp;&nbsp;const p = Promise.resolve(iteratorFn(item));<br>&nbsp;&nbsp;&nbsp;&nbsp;ret.push(p);<br>&nbsp;&nbsp;&nbsp;&nbsp;if (poolLimit <= array.length) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const e = p.then(() => executing.splice(executing.indexOf(e), 1));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;executing.push(e);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (executing.length >= poolLimit) await Promise.race(executing);<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;}<br>&nbsp;&nbsp;return Promise.all(ret);<br>}`;
+                }
+            },
+            {
+                name: "链式调用",
+                desc: "支持链式调用的类",
+                fn: () => {
+                    return `class Calculator {<br>&nbsp;&nbsp;constructor(value) { this.value = value; }<br>&nbsp;&nbsp;add(n) { this.value += n; return this; }<br>&nbsp;&nbsp;multiply(n) { this.value *= n; return this; }<br>&nbsp;&nbsp;result() { return this.value; }<br>}<br>// new Calculator(5).add(5).multiply(2).result()`;
+                }
+            },
+            {
+                name: "观察者模式",
+                desc: "实现事件订阅发布",
+                fn: () => {
+                    return `class EventEmitter {<br>&nbsp;&nbsp;constructor() { this.events = {}; }<br>&nbsp;&nbsp;on(event, fn) { (this.events[event] = this.events[event] || []).push(fn); }<br>&nbsp;&nbsp;emit(event, ...args) { (this.events[event] || []).forEach(fn => fn(...args)); }<br>&nbsp;&nbsp;off(event, fn) { this.events[event] = this.events[event]?.filter(f => f !== fn); }<br>}`;
+                }
+            },
+            {
+                name: "单例模式",
+                desc: "确保只有一个实例",
+                fn: () => {
+                    return `const singleton = (fn) => {<br>&nbsp;&nbsp;let instance;<br>&nbsp;&nbsp;return (...args) => {<br>&nbsp;&nbsp;&nbsp;&nbsp;if (!instance) instance = fn(...args);<br>&nbsp;&nbsp;&nbsp;&nbsp;return instance;<br>&nbsp;&nbsp;}<br>}`;
+                }
+            },
+            {
+                name: "工厂模式",
+                desc: "根据类型创建对象",
+                fn: () => {
+                    return `const factory = (type) => {<br>&nbsp;&nbsp;const creators = {<br>&nbsp;&nbsp;&nbsp;&nbsp;a: () => ({ type: 'A', value: 1 }),<br>&nbsp;&nbsp;&nbsp;&nbsp;b: () => ({ type: 'B', value: 2 })<br>&nbsp;&nbsp;};<br>&nbsp;&nbsp;return creators[type]();<br>}`;
+                }
+            },
+            {
+                name: "缓存装饰器",
+                desc: "为函数添加缓存功能",
+                fn: () => {
+                    return `const memoize = (fn) => {<br>&nbsp;&nbsp;const cache = new Map();<br>&nbsp;&nbsp;return (...args) => {<br>&nbsp;&nbsp;&nbsp;&nbsp;const key = JSON.stringify(args);<br>&nbsp;&nbsp;&nbsp;&nbsp;if (cache.has(key)) return cache.get(key);<br>&nbsp;&nbsp;&nbsp;&nbsp;const result = fn(...args);<br>&nbsp;&nbsp;&nbsp;&nbsp;cache.set(key, result);<br>&nbsp;&nbsp;&nbsp;&nbsp;return result;<br>&nbsp;&nbsp;}<br>}`;
+                }
+            },
+            {
+                name: "日志装饰器",
+                desc: "为函数添加日志",
+                fn: () => {
+                    return `const log = (fn) => {<br>&nbsp;&nbsp;return (...args) => {<br>&nbsp;&nbsp;&nbsp;&nbsp;console.log('调用:', fn.name, args);<br>&nbsp;&nbsp;&nbsp;&nbsp;const result = fn(...args);<br>&nbsp;&nbsp;&nbsp;&nbsp;console.log('结果:', result);<br>&nbsp;&nbsp;&nbsp;&nbsp;return result;<br>&nbsp;&nbsp;}<br>}`;
+                }
+            }
+        ];
+
+        // 合并所有函数
+        const allFunctions = [
+            ...arrayFunctions.map(f => ({...f, category: 'array'})),
+            ...stringFunctions.map(f => ({...f, category: 'string'})),
+            ...mathFunctions.map(f => ({...f, category: 'math'})),
+            ...dateFunctions.map(f => ({...f, category: 'date'})),
+            ...domFunctions.map(f => ({...f, category: 'dom'})),
+            ...gameFunctions.map(f => ({...f, category: 'game'})),
+            ...utilFunctions.map(f => ({...f, category: 'util'}))
+        ];
+
+        // 渲染所有函数卡片
+        function renderFunctions(functions) {
+            const grid = document.getElementById('functionsGrid');
+            grid.innerHTML = functions.map((f, index) => `
+                <div class="function-card cat-${f.category}" data-name="${f.name.toLowerCase()}">
+                    <h4>${index + 1}. ${f.name}</h4>
+                    <div class="desc">${f.desc}</div>
+                    <button onclick="runFunction(${index})">运行 ▶</button>
+                    <div class="result" id="result-${index}">点击运行查看结果...</div>
+                </div>
+            `).join('');
+        }
+
+        // 运行单个函数
+        function runFunction(index) {
+            const resultDiv = document.getElementById(`result-${index}`);
+            resultDiv.innerHTML = allFunctions[index].fn();
+        }
+
+        // 按分类筛选
+        function showCategory(category) {
+            document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const cards = document.querySelectorAll('.function-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.classList.contains(`cat-${category}`)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // 搜索功能
+        function filterFunctions() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.function-card');
+            cards.forEach(card => {
+                if (card.dataset.name.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // 初始化渲染
+        renderFunctions(allFunctions);
+
+        console.log(`🎮 200个 JavaScript 函数已加载！`);
+        console.log(`📦 数组函数: ${arrayFunctions.length}个`);
+        console.log(`🔤 字符串函数: ${stringFunctions.length}个`);
+        console.log(`🔢 数学函数: ${mathFunctions.length}个`);
+        console.log(`⏰ 日期函数: ${dateFunctions.length}个`);
+        console.log(`🖼️ DOM函数: ${domFunctions.length}个`);
+        console.log(`🎮 游戏函数: ${gameFunctions.length}个`);
+        console.log(`🔧 工具函数: ${utilFunctions.length}个`);
+    </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使用外部 JS 文件</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f0f2f5;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: #45a049;
+            transform: scale(1.05);
+        }
+        .result {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            min-height: 50px;
+        }
+        .console-note {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Consolas', monospace;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📦 使用外部 JS 文件示例</h1>
+
+        <p>这个页面导入了 <code>myscript-demo.js</code> 文件。</p>
+        <p>所有函数都定义在外部文件中，这里直接调用即可！</p>
+
+        <div class="console-note">
+            💡 别忘了按 <strong>F12</strong> 打开控制台查看 console.log 的输出！
+        </div>
+
+        <h3>🎮 测试外部 JS 中的函数：</h3>
+
+        <div class="button-group">
+            <button onclick="sayHello('千树')">sayHello</button>
+            <button onclick="alert(calculateSum(15, 27))">calculateSum</button>
+            <button onclick="alert(findTopStudent(students).name)">findTopStudent</button>
+            <button onclick="alert(formatDate(new Date()))">formatDate</button>
+            <button onclick="alert(isEmailValid('test@example.com'))">isEmailValid</button>
+            <button onclick="alert(validateAge(25))">validateAge</button>
+            <button onclick="fetchData()">fetchData</button>
+            <button onclick="alert(debugFunction(7))">debugFunction</button>
+        </div>
+
+        <div class="result" id="result">
+            点击按钮后，结果会显示在弹窗中，详细信息请查看控制台！
+        </div>
+
+        <h3>📖 知识点：</h3>
+        <ul>
+            <li>✅ 外部 JS 文件可以被多个 HTML 页面共享</li>
+            <li>✅ 代码分离让 HTML 更简洁</li>
+            <li>✅ 函数可以复用，不用重复写</li>
+            <li>✅ 便于维护和调试</li>
+        </ul>
+    </div>
+
+    <!-- 导入外部 JS 文件 -->
+    <script src="./myscript-demo.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <!-- ===== UTF-8 字符编码演示 ===== -->
+  <h2>🔤 UTF-8 字符编码演示</h2>
+  <p><strong>当前 charset 状态：</strong>已注释（去掉注释后可正常显示以下所有字符）</p>
+
+  <h3>1️⃣ 中文字符</h3>
+  <p>你好世界！我爱编程 🧡 中文、日語한글</p>
+
+  <h3>2️⃣ 表情符号 Emoji</h3>
+  <p>😀 😃 😄 😁 😆 😅 🤣 😂 🥲 🥹 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚 😋 😛 😝 😜 🤪</p>
+
+  <h3>3️⃣ 特殊符号</h3>
+  <p>© 版权符号 | ® 注册商标 |™ 商标 | § 分节符 | ¶ 段落符 | • 项目符号 | ° 度数 | ± 正负号</p>
+
+  <h3>4️⃣ 数学符号</h3>
+  <p>∑ 求和 | ∞ 无穷 | √ 根号 | π 圆周率 | ≠ 不等于 | ≈ 约等于 | ≤ 小于等于 | ≥ 大于等于</p>
+
+  <h3>5️⃣ 箭头符号</h3>
+  <p>→ ← ↑ ↓ ↔ ↕ ↖ ↗ ↘ ↙ ➔ ➚ ➘ ➙ ➛ ➜ ➝ ➞ ➟</p>
+
+  <h3>6️⃣ 货币符号</h3>
+  <p>$ 美元 | € 欧元 | £ 英镑 | ¥ 日元/人民币 | ₩ 韩元</p>
+
+  <h3>7️⃣ 各种语言</h3>
+  <p>
+    🇨🇳 中文：世界你好<br>
+    🇯🇵 日语：こんにちは世界<br>
+    🇰🇷 韩语：안녕하세요 세계<br>
+    🇷🇺 俄语：Привет мир<br>
+    🇸🇦 阿拉伯语：مرحبا بالعالم<br>
+    🇬🇷 希腊语：Γεια σου κόσμε<br>
+    🇹🇭 泰语：สวัสดีโลก<br>
+  </p>
+
+  <div style="background: #f0f0f0; padding: 15px; border-radius: 8px; margin-top: 20px;">
+    <h3>💡 UTF-8 的作用</h3>
+    <p><strong>UTF-8 (Unicode Transformation Format - 8-bit)</strong> 是一种可变长度的字符编码，可以表示世界上几乎所有语言的字符。</p>
+
+    <h4>📌 编码错误时的真实效果对照表：</h4>
+    <table style="border-collapse: collapse; width: 100%; background: white; border-radius: 5px; overflow: hidden;">
+      <tr style="background: #333; color: white;">
+        <th style="padding: 10px; border: 1px solid #ddd;">正确内容</th>
+        <th style="padding: 10px; border: 1px solid #ddd;">错误编码（GBK读取UTF-8）</th>
+      </tr>
+      <tr>
+        <td style="padding: 10px; border: 1px solid #ddd; color: green;">你好世界</td>
+        <td style="padding: 10px; border: 1px solid #ddd; color: red;">浣犲ソ涘爤</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px; border: 1px solid #ddd; color: green;">刘德华</td>
+        <td style="padding: 10px; border: 1px solid #ddd; color: red;">鍒榮瓊</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px; border: 1px solid #ddd; color: green;">我爱编程</td>
+        <td style="padding: 10px; border: 1px solid #ddd; color: red;">鎴戝枩缂栫▼</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px; border: 1px solid #ddd; color: green;">© 2024 版权所有</td>
+        <td style="padding: 10px; border: 1px solid #ddd; color: red;">© 2024 鐗堟潈鎵€鏈?</td>
+      </tr>
+    </table>
+
+    <h4 style="margin-top: 15px;">🤔 为什么你现在没看到乱码？</h4>
+    <ul>
+      <li>✅ 现代浏览器会<strong>自动检测</strong>文件编码</li>
+      <li>✅ 你的文件本身就是用 UTF-8 保存的</li>
+      <li>✅ 浏览器很聪明，会尝试多种编码方式</li>
+    </ul>
+    <p><strong>真正会出现乱码的情况：</strong>文件用 UTF-8 保存，但浏览器被强制用 GBK/GB2312 去读取（老旧浏览器或特定服务器设置）。</p>
+
+    <p style="margin-top: 10px; color: #0066cc;"><strong>建议：</strong>始终加上
+      <code>&lt;meta charset="UTF-8"&gt;</code>，这是一种明确的声明，告诉浏览器"请用 UTF-8 读取我"，避免任何歧义。</p>
+  </div>
+</body>
+
+</html>

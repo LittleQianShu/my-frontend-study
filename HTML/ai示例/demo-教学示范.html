@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎓 JS 教学示范 - 为什么导入 JS 有意义？</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+        .question {
+            color: #e74c3c;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        .answer {
+            color: #27ae60;
+            line-height: 1.8;
+        }
+        .demo-box {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border: 2px dashed #ddd;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        #colorBox {
+            width: 100px;
+            height: 100px;
+            background: #667eea;
+            border-radius: 10px;
+            transition: all 0.5s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        .console-tip {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Consolas', monospace;
+            margin: 10px 0;
+        }
+        .interactive-area {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        #counter {
+            font-size: 2em;
+            color: #667eea;
+            font-weight: bold;
+        }
+        .emoji-icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎓 千树小朋友的 JS 学习之旅</h1>
+
+        <div class="section">
+            <div class="question">❓ 你的疑问：console.log 不显示在网页上，有什么意义？</div>
+            <div class="answer">
+                <p><span class="highlight">答：</span>console.log 就像是<strong>程序员的秘密日记</strong>！它不显示在网页上，而是显示在<strong>开发者工具的控制台</strong>里。按 <span class="highlight">F12</span> 或右键→检查→Console 就能看到！</p>
+                <div class="console-tip">
+                    💡 小技巧：按 F12 打开开发者工具，点击 Console 标签页<br>
+                    你会看到所有 console.log 的输出！
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="question">🤔 那导入 JS 到底有什么用？</div>
+            <div class="answer">
+                <p><strong>JS 的真正威力：</strong>让网页<strong>动起来</strong>、<strong>响应用户</strong>、<strong>处理数据</strong>！</p>
+                <p>下面这些效果，<span class="highlight">全部都是 JS 的功劳</span>：</p>
+
+                <div class="interactive-area">
+                    <h3>🎮 试试看：点击下面的按钮，感受 JS 的魅力！</h3>
+
+                    <div class="demo-box">
+                        <h4>1️⃣ 点击变色</h4>
+                        <div id="colorBox">点我变色！</div>
+                        <button onclick="changeColor()">改变颜色</button>
+                        <button onclick="resetColor()">重置</button>
+                    </div>
+
+                    <div class="demo-box">
+                        <h4>2️⃣ 计数器</h4>
+                        <div>当前数字：<span id="counter">0</span></div>
+                        <button onclick="increment()">+1</button>
+                        <button onclick="decrement()">-1</button>
+                        <button onclick="double()">×2</button>
+                    </div>
+
+                    <div class="demo-box">
+                        <h4>3️⃣ 显示/隐藏内容</h4>
+                        <button onclick="toggleContent()">显示/隐藏秘密消息</button>
+                        <p id="secretMessage" style="display:none; color: #e74c3c; font-size: 1.2em; margin-top: 10px;">
+                            🎉 恭喜你发现了秘密！这就是用 JS 控制显示/隐藏的效果！
+                        </p>
+                    </div>
+
+                    <div class="demo-box">
+                        <h4>4️⃣ 获取当前时间</h4>
+                        <button onclick="showTime()">显示当前时间</button>
+                        <p id="timeDisplay" style="margin-top: 10px; color: #27ae60; font-weight: bold;"></p>
+                    </div>
+
+                    <div class="demo-box">
+                        <h4>5️⃣ 动态添加内容</h4>
+                        <button onclick="addTodo()">添加待办事项</button>
+                        <ul id="todoList"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="question">📝 总结：JS 导入的意义</div>
+            <div class="answer">
+                <ul style="line-height: 2;">
+                    <li><span class="emoji-icon">🎨</span><strong>操作 DOM：</strong>改变网页内容、样式、结构</li>
+                    <li><span class="emoji-icon">👆</span><strong>响应用户：</strong>点击、输入、滚动等事件</li>
+                    <li><span class="emoji-icon">💾</span><strong>数据处理：</strong>计算、验证、发送请求</li>
+                    <li><span class="emoji-icon">🐛</span><strong>调试代码：</strong>console.log 帮你找错误</li>
+                    <li><span class="emoji-icon">🔄</span><strong>动态交互：</strong>让网页"活"起来</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="question">🚀 console.log 的真正用途</div>
+            <div class="answer">
+                <p>虽然用户看不到 console.log，但它是程序员的<strong>调试神器</strong>：</p>
+                <ul style="line-height: 2;">
+                    <li>✅ 检查代码是否执行到这里</li>
+                    <li>✅ 查看变量的值</li>
+                    <li>✅ 找出错误在哪里</li>
+                    <li>✅ 理解代码执行顺序</li>
+                </ul>
+                <div class="console-tip">
+                    🔍 点击任何一个上方的按钮，然后按 F12 查看 Console<br>
+                    你会看到 JS 在偷偷记录很多信息！
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== 这里的代码展示了 JS 的真正威力 ====================
+
+        // 1️⃣ 变色功能
+        function changeColor() {
+            const box = document.getElementById('colorBox');
+            const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+            box.style.background = randomColor;
+            box.textContent = '🎨 变色了！';
+            console.log('颜色已改为：' + randomColor);
+        }
+
+        function resetColor() {
+            const box = document.getElementById('colorBox');
+            box.style.background = '#667eea';
+            box.textContent = '点我变色！';
+            console.log('颜色已重置');
+        }
+
+        // 2️⃣ 计数器功能
+        let count = 0;
+        function increment() {
+            count++;
+            document.getElementById('counter').textContent = count;
+            console.log('计数器 +1，当前值：' + count);
+        }
+
+        function decrement() {
+            count--;
+            document.getElementById('counter').textContent = count;
+            console.log('计数器 -1，当前值：' + count);
+        }
+
+        function double() {
+            count = count * 2;
+            document.getElementById('counter').textContent = count;
+            console.log('计数器 ×2，当前值：' + count);
+        }
+
+        // 3️⃣ 显示/隐藏功能
+        function toggleContent() {
+            const msg = document.getElementById('secretMessage');
+            if (msg.style.display === 'none') {
+                msg.style.display = 'block';
+                console.log('秘密消息已显示');
+            } else {
+                msg.style.display = 'none';
+                console.log('秘密消息已隐藏');
+            }
+        }
+
+        // 4️⃣ 显示时间
+        function showTime() {
+            const now = new Date();
+            const timeString = now.toLocaleString('zh-CN');
+            document.getElementById('timeDisplay').textContent = '🕐 ' + timeString;
+            console.log('小朋友点击了显示时间按钮，获取当前时间：' + timeString);
+        }
+
+        // 5️⃣ 动态添加待办事项
+        let todoCount = 0;
+        function addTodo() {
+            todoCount++;
+            const list = document.getElementById('todoList');
+            const li = document.createElement('li');
+            li.textContent = `📝 待办事项 #${todoCount} - 创建于 ${new Date().toLocaleTimeString()}`;
+            li.style.cursor = 'pointer';
+            li.onclick = function() {
+                this.style.textDecoration = 'line-through';
+                this.style.color = '#999';
+                console.log('完成了待办事项 #' + todoCount);
+            };
+            list.appendChild(li);
+            console.log('添加了新待办事项 #' + todoCount);
+        }
+
+        // 页面加载时的欢迎消息
+        console.log('='.repeat(50));
+        console.log('🎓 JS 教学示范页面已加载！');
+        console.log('💡 提示：尝试点击上面的按钮，然后回到这里查看日志');
+        console.log('='.repeat(50));
+    </script>
+</body>
+</html>
