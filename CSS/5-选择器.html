@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    ul li a {
+      color: red;
+      font-size: 30px;
+    }
+
+    .footer a {
+      color: pink;
+      font-size: 25px;
+    }
+
+    div>span {
+      color: green;
+      font-size: 25px;
+    }
+
+    div p span {
+      color: blue;
+      font-size: 25px;
+    }
+    h2+p{
+      color: red;
+    }
+    h2~p{
+      color: pink;
+    }
+    .brother+li{
+      color: red;
+    }
+    .brother~li{
+      color: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <ul>
+    <li><a href="#">首页</a></li>
+    <li><a href="#">产品介绍</a></li>
+    <li><a href="#">合作模式</a></li>
+  </ul>
+  <div class="footer">
+    <a href="#">关于我们</a>
+    <a href="#">联系我们</a>
+    <a href="#">隐私政策</a>
+  </div>
+  <div>
+    <span>我是儿子我是儿子</span>
+    <p>
+      <span>我是孙子</span>
+    </p>
+  </div>
+  <div class="box">
+    <p>兄弟呀，想你啦！ </p>
+    <p>兄弟呀，想你啦！ </p>
+    <p>兄弟呀，想你啦！ </p>
+    <p>兄弟呀，想你啦！ </p>
+    <h2>我是标题</h2>
+    <p>兄弟呀，想你啦！ </p>
+    <p>兄弟呀，想你啦！ </p>
+    <p>兄弟呀，想你啦！ </p>
+    <p>兄弟呀，想你啦！ </p>
+  </div>
+  <ul>
+    <li>兄弟</li>
+    <li class="brother">兄弟</li>
+    <li>兄弟</li>
+    <li>兄弟</li>
+    <li>兄弟</li>
+  </ul>
+</body>
+
+</html>
