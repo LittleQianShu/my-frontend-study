@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      background-color: #C3C3C3;
+    }
+
+    img {
+      margin: 1px;
+      width: 100px;
+      border-radius: 10px 0;
+    }
+
+    .radius9 {
+      margin: 1px;
+      width: 100px;
+      height: 30px;
+      background-color: #8fbcf1;
+      border-radius: 5px;
+      text-align: center;
+      line-height: 30px;
+    }
+
+    .radius10 {
+      margin: 1px;
+      width: 100px;
+      height: 30px;
+      background-color: #8fbcf1;
+      border-radius: 5px;
+      text-align: center;
+      line-height: 30px;
+    }
+
+    button {
+      margin: 1px;
+      width: 100px;
+      height: 30px;
+      border-radius: 5px;
+      border: 1px solid rgb(168, 162, 162);
+      /* 👈 这就是设置边框 */
+    }
+  </style>
+</head>
+
+<body>
+  <img src="./images/imgi_1_bannerlmagejpg" alt="">
+  <img src="./images/imgi_124_0.jpg" alt="">
+  <img src="./images/imgi_139_0.jpg" alt="">
+  <img style="height:75px;" src="./images/imgi_216_0.jpg" alt="">
+  <img src="./images/imgi_229_0.jpg" alt="">
+  <img src="./images/imgi_259_0.jpg" alt="">
+  <img src="./images/imgi_289_0.jpg" alt="">
+  <img src="./images/imgi_304_0.jpg" alt="">
+  <img src="./images/imgi_379_0.jpg" alt="">
+  <img src="./images/imgi_424_0.jpg" alt="">
+  <div class="radius9">采购清单</div>
+  <div class="radius10">我的购物车</div>
+  <button>采购清单</button>
+  <button>我的购物车</button>
+  <script>
+    document.querySelector('button').addEventListener('click', function () {
+      alert('点击了采购清单按钮');
+    })
+  </script>
+</body>
+
+</html>
