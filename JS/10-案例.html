@@ -33,32 +33,61 @@
 <body>
   <!-- <h2>订单确认</h2> -->
   <script>
-    let a = prompt('请输入商品名称:')
-    let b = +prompt('请输入商品价格:')
-    let c = +prompt('请输入商品数量:')
-    let d = b * c
-    let e = +prompt('请输入收货地址:')
-    document.write(`
-      <table>
-        <tr>
-          <th>商品名称</th>
-          <th>商品价格</th>
-          <th>商品数量</th>
-          <th>总价</th>
-          <th>收货地址</th>
-        </tr>
-        <tr>
-          <td>${a}</td>
-          <td>${b}</td>
-          <td>${c}</td>
-          <td>${d}</td>
-          <td>${e}</td>
-        </tr>
-    </table>
-    `);
+    // let a = prompt('请输入商品名称:')
+    // let b = +prompt('请输入商品价格:')
+    // let c = +prompt('请输入商品数量:')
+    // let d = b * c
+    // let e = +prompt('请输入收货地址:')
+    // document.write(`
+    //   <table>
+    //     <tr>
+    //       <th>商品名称</th>
+    //       <th>商品价格</th>
+    //       <th>商品数量</th>
+    //       <th>总价</th>
+    //       <th>收货地址</th>
+    //     </tr>
+    //     <tr>
+    //       <td>${a}</td>
+    //       <td>${b}</td>
+    //       <td>${c}</td>
+    //       <td>${d}</td>
+    //       <td>${e}</td>
+    //     </tr>
+    // </table>
+    // `);
 
   </script>
-
+  
+  <script>
+    let a = +prompt('请输入消费的年份')
+    let b = +prompt('请输入您消费的月份')
+    let c = +prompt('请输入您的银行卡总额:')
+    let d = +prompt('请输入您的水费:')
+    let e = +prompt('请输入您的电费:')  
+    let f = +prompt('请输入您的网费:')
+    let g = d + e + f
+    let h = c - g
+    document.write(`
+  <h2>2020年12月消费支出</h2>
+  <table>
+    <tr>
+      <th>银行卡总额</th>
+      <th>水费</th>
+      <th>电费</th>
+      <th>网费</th>
+      <th>银行卡余额</th>
+    </tr>
+    <tr>
+      <th>${c}</th>
+      <th>${d}</th>
+      <th>${e}</th>
+      <th>${f}</th>
+      <th>${h}</th>
+    </tr>
+  <table>  
+    `)
+  </script>
 </body>
 
 </html>
