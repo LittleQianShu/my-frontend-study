@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- // 每年有12个月，加入每个月有30天，请打印每一天的日期，格式为 1月1日 -
+    12月30日。 -->
+    <!-- <script>
+      for (let y = 2018; y<2027;y++) {
+        for (let m = 1; m < 13; m++) {
+          for (let d = 1; d < 31; d++) {
+            if (m===7&&d===9) {
+              document.write(`千树这是你的生日，你已经${y+1-2018}岁了`)
+            }
+            document.write(`${y}年${m}月${d}日<br>`);
+          }
+        }
+      }
+        
+    </script> -->
+    <script>
+      for (let i = 1; i < 6; i++) {
+        document.write("<br>");
+        for (let j = 1; j < 6; j++) {
+          document.write("⭐");
+        }
+      }
+      document.write("<br><br>");
+      for (let a = 1; a < 6; a++) {
+        for (let e = 1; e < 6; e++) {
+          document.write("⭐");
+          if (e === a) {
+            document.write("<br>");
+            break;
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

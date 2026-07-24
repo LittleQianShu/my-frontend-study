@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 三国武将数据列表
+      const threeKingdomsGenerals = [
+        { name: "关羽", faction: "蜀汉", weapon: "青龙偃月刀", title: "武圣" },
+        { name: "张飞", faction: "蜀汉", weapon: "丈八蛇矛", title: "万人敌" },
+        {
+          name: "赵云",
+          faction: "蜀汉",
+          weapon: "龙胆亮银枪",
+          title: "常山赵子龙",
+        },
+        { name: "马超", faction: "蜀汉", weapon: "龙骑尖", title: "锦马超" },
+        {
+          name: "黄忠",
+          faction: "蜀汉",
+          weapon: "八宝麒麟弓",
+          title: "老将军",
+        },
+        { name: "吕布", faction: "诸侯", weapon: "方天画戟", title: "飞将" },
+        { name: "典韦", faction: "曹魏", weapon: "双铁戟", title: "古之恶来" },
+        { name: "许褚", faction: "曹魏", weapon: "火云刀", title: "虎痴" },
+        { name: "周瑜", faction: "孙吴", weapon: "干将剑", title: "美周郎" },
+        { name: "陆逊", faction: "孙吴", weapon: "佩剑", title: "社稷之臣" },
+      ];
+      console.log(threeKingdomsGenerals.length);
+      for (i = 0 ; i<threeKingdomsGenerals.length;i++) {
+        if (i===3){continue}
+        console.log(threeKingdomsGenerals[i]['name']);
+        // if (i === 5) {break}
+      }
+    </script>
+  </body>
+</html>

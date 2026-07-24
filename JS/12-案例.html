@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let The_original_pocket_money = 1000;
+      while (true) {
+        let operation = +prompt(`
+          请您选择操作:
+          1.存钱
+          2.取钱
+          3.查看余额
+          4.退出
+      `);
+        if (operation === 4) {
+          break;
+        }
+        switch (operation) {
+          case 1:
+            let save_money = +prompt("请输入存款金额:");
+            The_original_pocket_money += save_money;
+            break;
+          case 2:
+            let withdraw_money = +prompt("请输入取款金额:");
+            The_original_pocket_money -= withdraw_money;
+            break;
+          case 3:
+            alert(
+              `余额是${The_original_pocket_money}`,
+            );
+            break;
+        }
+      }
+    </script>
+  </body>
+</html>
